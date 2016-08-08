@@ -1322,6 +1322,9 @@ class DateField(DateTimeCheckMixin, Field):
             value = self.get_prep_value(value)
         return connection.ops.value_to_db_date(value)
 
+    def from_db_value(self, value, expression, connection, context):
+        return self.to_python(value)
+
     def value_to_string(self, obj):
         val = self._get_val_from_obj(obj)
         return '' if val is None else val.isoformat()
